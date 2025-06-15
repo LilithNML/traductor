@@ -11,7 +11,7 @@ const backspaceBtn = document.getElementById('backspaceBtn');
 const spaceBtn = document.getElementById('spaceBtn');
 
 
-// --- Configuración del Teclado de Símbolos (SOLO A-Z) ---
+// --- Configuración del Teclado de Símbolos (A-Z) ---
 // Define aquí los símbolos y sus letras correspondientes.
 // Asegúrate de que tengas una imagen para cada símbolo en la carpeta 'symbols/'.
 const symbolsData = [];
@@ -44,15 +44,17 @@ function generateSymbolKeyboard() {
         symbolKeyboard.appendChild(button);
 
         button.addEventListener('click', () => {
-            // Inserta la letra en la posición actual del cursor
             const start = decodedMessageTextarea.selectionStart;
             const end = decodedMessageTextarea.selectionEnd;
             const currentText = decodedMessageTextarea.value;
+            
+            // Insertar la letra en la posición del cursor
             decodedMessageTextarea.value = currentText.substring(0, start) + symbol.letter + currentText.substring(end);
             
-            // Reposiciona el cursor después del texto insertado
-            decodedMessageTextarea.selectionEnd = start + symbol.letter.length;
-            decodedMessageTextarea.focus(); // Mantiene el foco en el textarea
+            // Reposicionar el cursor después del texto insertado, PERO SIN HACER SCROLL AUTOMÁTICO
+            // Esto se logra ajustando la selección y luego llamando a focus(), pero evitando scrollIntoView
+            decodedMessageTextarea.setSelectionRange(start + symbol.letter.length, start + symbol.letter.length);
+            decodedMessageTextarea.focus({ preventScroll: true }); // <--- CLAVE: preventScroll: true
         });
     });
 }
@@ -93,10 +95,16 @@ function displayImageInWrapper(src, wrapper, placeholder) {
 imageUpload.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (file) {
-        const placeholder = document.querySelector('.image-display-wrapper .image-placeholder');
-        displayImageInWrapper(e.target.result, imageDisplayWrapper, placeholder);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const placeholder = document.querySelector('.image-display-wrapper .image-placeholder');
+            displayImageInWrapper(e.target.result, imageDisplayWrapper, placeholder);
+        };
+        reader.readAsDataURL(file);
     } else {
         imageDisplayWrapper.innerHTML = '<p class="image-placeholder">La imagen clave aparecerá aquí.</p>';
+        const placeholder = document.querySelector('.image-display-wrapper .image-placeholder');
+        if (placeholder) placeholder.style.display = 'block'; // Asegura que el placeholder vuelva a mostrarse
     }
 });
 
@@ -114,10 +122,12 @@ loadImageFromUrlBtn.addEventListener('click', () => {
         } else {
             alert('Por favor, introduce una URL de imagen válida (ej. .jpg, .png, .gif, .webp, .svg).');
             imageDisplayWrapper.innerHTML = '<p class="image-placeholder">La imagen clave aparecerá aquí.</p>';
+            if (placeholder) placeholder.style.display = 'block';
         }
     } else {
         alert('Por favor, introduce una URL de imagen para cargar.');
         imageDisplayWrapper.innerHTML = '<p class="image-placeholder">La imagen clave aparecerá aquí.</p>';
+        if (placeholder) placeholder.style.display = 'block';
     }
 });
 
@@ -141,12 +151,12 @@ backspaceBtn.addEventListener('click', () => {
 
     if (start === end && start > 0) { // Si no hay selección y el cursor no está al inicio
         decodedMessageTextarea.value = currentText.substring(0, start - 1) + currentText.substring(end);
-        decodedMessageTextarea.selectionEnd = start - 1; // Mueve el cursor a la izquierda
+        decodedMessageTextarea.setSelectionRange(start - 1, start - 1);
     } else if (start !== end) { // Si hay una selección
         decodedMessageTextarea.value = currentText.substring(0, start) + currentText.substring(end);
-        decodedMessageTextarea.selectionEnd = start; // Mueve el cursor al inicio de la selección eliminada
+        decodedMessageTextarea.setSelectionRange(start, start);
     }
-    decodedMessageTextarea.focus();
+    decodedMessageTextarea.focus({ preventScroll: true }); // <--- CLAVE: preventScroll: true
 });
 
 // Event listener para el botón Espacio
@@ -155,14 +165,19 @@ spaceBtn.addEventListener('click', () => {
     const end = decodedMessageTextarea.selectionEnd;
     const currentText = decodedMessageTextarea.value;
     decodedMessageTextarea.value = currentText.substring(0, start) + ' ' + currentText.substring(end);
-    decodedMessageTextarea.selectionEnd = start + 1; // Mueve el cursor después del espacio
-    decodedMessageTextarea.focus();
+    decodedMessageTextarea.setSelectionRange(start + 1, start + 1);
+    decodedMessageTextarea.focus({ preventScroll: true }); // <--- CLAVE: preventScroll: true
 });
 
 
 // Event listener para copiar el mensaje al portapapeles
 copyMessageBtn.addEventListener('click', () => {
     if (decodedMessageTextarea.value.trim()) {
+        // Al copiar, sí queremos que el texto sea visible para el usuario si es necesario
+        decodedMessageTextarea.focus(); // Enfoca para que la selección funcione bien
+        decodedMessageTextarea.select(); // Selecciona todo el texto
+        decodedMessageTextarea.setSelectionRange(0, 99999); // Para móviles
+
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(decodedMessageTextarea.value)
                 .then(() => {
