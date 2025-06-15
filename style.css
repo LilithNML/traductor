@@ -1,0 +1,336 @@
+/* Variables CSS para personalización */
+:root {
+    --primary-bg: #f5f5f5; /* Un gris muy claro, suave */
+    --card-bg: #ffffff;
+    --text-color: #3c4043; /* Gris oscuro para texto principal */
+    --light-text-color: #70757a; /* Gris medio para texto secundario/placeholder */
+    --border-color: #dadce0; /* Borde suave */
+    --accent-color: #1a73e8; /* Azul de Google para botones principales */
+    --accent-hover: #1764cc; /* Azul más oscuro al pasar el ratón */
+    --secondary-button-bg: #e0e0e0; /* Fondo para botones secundarios (borrar, espacio) */
+    --secondary-button-hover: #cdcdcd;
+    --button-text: #ffffff;
+    --shadow-subtle: rgba(60, 64, 67, 0.1); /* Sombra muy ligera */
+    --border-radius: 8px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 32px;
+}
+
+/* Reset básico y estilos generales */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-sm); /* Padding general para móvil */
+    min-height: 100vh;
+}
+
+/* Contenedor principal para centrar y limitar ancho */
+.container {
+    width: 100%;
+    max-width: 700px; /* Ancho máximo un poco más estrecho para desktop */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg); /* Espacio generoso entre secciones */
+}
+
+.page-title {
+    text-align: center;
+    color: var(--light-text-color);
+    font-weight: 300;
+    font-size: 1.8em; /* Tamaño para móvil */
+    margin-bottom: var(--spacing-sm); /* Espacio antes de la primera card */
+}
+
+/* Estilo de las tarjetas (secciones) */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px var(--shadow-subtle); /* Sombra sutil */
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    border: 1px solid var(--border-color); /* Borde sutil */
+}
+
+.section-title {
+    font-size: 1.2em; /* Tamaño para móvil */
+    color: var(--text-color);
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Grupos de Input y Botones */
+.input-group {
+    display: flex;
+    flex-direction: column; /* Apilados por defecto en móvil */
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.text-input {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    font-size: 1em;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.text-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* Estilos para el input de tipo file oculto y su label */
+.file-input {
+    display: none; /* Oculta el input de archivo */
+}
+
+.file-input-label {
+    display: block; /* Ocupa su propia línea */
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    font-weight: 500; /* Un poco más de peso para que parezca botón */
+}
+
+.file-input-label:hover {
+    background-color: var(--primary-bg);
+    border-color: #cdd0d3;
+}
+
+.button {
+    background-color: var(--accent-color);
+    color: var(--button-text);
+    border: none;
+    border-radius: 4px;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ocupa todo el ancho en móvil */
+    font-weight: 500;
+}
+
+.button:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 1px 2px var(--shadow-subtle);
+}
+
+.button:active {
+    background-color: #1565c0;
+    box-shadow: inset 0 1px 2px var(--shadow-subtle);
+}
+
+.secondary-button {
+    background-color: var(--secondary-button-bg);
+    color: var(--text-color);
+}
+
+.secondary-button:hover {
+    background-color: var(--secondary-button-hover);
+}
+
+.secondary-button:active {
+    background-color: #b0b0b0;
+}
+
+
+/* Sección de Visualización de Imagen */
+.image-display-wrapper {
+    width: 100%;
+    min-height: 200px; /* Altura mínima para el contenedor de imagen */
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--primary-bg);
+    padding: var(--spacing-xs);
+}
+
+.image-display-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.image-placeholder {
+    color: var(--light-text-color);
+    text-align: center;
+    font-size: 0.9em;
+    padding: var(--spacing-sm);
+}
+
+/* Estilos del Teclado de Símbolos */
+.symbol-keyboard {
+    display: grid;
+    /* Ajustado para que los botones sean un poco más grandes y espaciados en móvil */
+    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr)); 
+    gap: var(--spacing-xs); /* Espacio entre botones */
+    justify-content: center; /* Centrar los botones en la cuadrícula */
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm); /* Un poco de padding para el teclado */
+    background-color: var(--primary-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.symbol-button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    padding: var(--spacing-xs);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px; /* Altura fija para los botones, un poco más grandes */
+    width: 100%; /* Ocupa el ancho de la celda */
+    font-size: 1.2em; /* Para el texto si no hay imagen */
+    color: var(--text-color);
+}
+
+.symbol-button:hover {
+    background-color: var(--primary-bg);
+    box-shadow: 0 1px 3px var(--shadow-subtle);
+}
+
+.symbol-button:active {
+    background-color: #ebebeb;
+    box-shadow: inset 0 1px 2px var(--shadow-subtle);
+}
+
+.symbol-button img {
+    max-width: 90%; /* Ajusta la imagen dentro del botón */
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.keyboard-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap; /* Permite que los botones se envuelvan */
+}
+
+.keyboard-controls .button {
+    width: auto; /* Ancho automático para estos botones */
+    padding: var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs); /* Espacio entre icono y texto */
+}
+
+/* Iconos de Material Symbols (si decides usarlos) */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+/* Área de mensaje decodificado */
+.decoder-output-group {
+    display: flex;
+    flex-direction: column; /* Apilado en móvil */
+    gap: var(--spacing-sm);
+    width: 100%;
+}
+
+.decoded-textarea {
+    resize: vertical;
+    min-height: 120px; /* Altura mínima de textarea */
+    font-family: 'Roboto Mono', monospace; /* Fuente monoespaciada */
+    text-transform: uppercase; /* Fuerza mayúsculas visualmente */
+    /* Nueva propiedad para evitar el teclado nativo en móviles */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+    cursor: default; /* Muestra un cursor normal, no el de texto */
+}
+
+
+/* Media Queries para Desktop */
+@media (min-width: 600px) {
+    body {
+        padding: var(--spacing-lg);
+    }
+
+    .page-title {
+        font-size: 2.5em;
+    }
+
+    .card {
+        padding: var(--spacing-lg);
+    }
+
+    .section-title {
+        font-size: 1.4em;
+    }
+
+    .input-group {
+        flex-direction: row; /* En línea en desktop */
+        align-items: center;
+    }
+
+    .file-input-label {
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .url-input-group .text-input {
+        flex-grow: 1;
+    }
+
+    .button {
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .decoder-output-group {
+        flex-direction: row; /* Campo de texto y botón en línea */
+        align-items: flex-end; /* Alinea el botón con la parte inferior del textarea */
+    }
+    
+    .decoded-textarea {
+        flex-grow: 1;
+    }
+
+    .symbol-keyboard {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); /* Más grande en desktop */
+        padding: var(--spacing-md);
+    }
+
+    .symbol-button {
+        height: 70px;
+    }
+}
