@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Descifra tu mensaje secreto</h1>
+
+        <section class="card image-section">
+            <h2 class="section-title">Visualiza tu Imagen Clave</h2>
+            <div class="input-group">
+                <input type="file" id="imageUpload" accept="image/*" class="file-input">
+                <label for="imageUpload" class="file-input-label">Seleccionar imagen</label>
+            </div>
+            <div class="input-group url-input-group">
+                <input type="text" id="imageUrl" placeholder="O pega una URL de imagen aquí..." class="text-input">
+                <button id="loadImageFromUrl" class="button">Cargar URL</button>
+            </div>
+            <div class="image-display-wrapper" id="imageDisplayWrapper">
+                <p class="image-placeholder">La imagen clave aparecerá aquí.</p>
+            </div>
+        </section>
+
+        <section class="card decoder-section">
+            <h2 class="section-title">Teclado de Decodificación</h2>
+            <div id="symbolKeyboard" class="symbol-keyboard">
+                </div>
+            <div class="keyboard-controls">
+                <button id="backspaceBtn" class="button secondary-button"><span class="material-symbols-outlined">backspace</span> Borrar</button>
+                <button id="spaceBtn" class="button secondary-button"><span class="material-symbols-outlined">space_bar</span> Espacio</button>
+            </div>
+
+            <h2 class="section-title">Mensaje Decodificado</h2>
+            <div class="decoder-output-group">
+                <textarea id="decodedMessage" class="text-input decoded-textarea" rows="5" placeholder="El mensaje aparecerá aquí al usar el teclado..." readonly></textarea>
+                <button id="copyMessage" class="button">Copiar Mensaje</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
